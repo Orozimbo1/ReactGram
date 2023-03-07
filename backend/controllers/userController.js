@@ -56,7 +56,33 @@ const register = async (req, res) => {
 
 // Sign user in
 const login = async (req, res) => {
-  res.status(200).json('deu certo')
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email })
+
+  // Check if user exists
+  if(!user) {
+    res.status(404).json({
+      errors: ['Usuário ou senha incorretos.']
+    })
+    return
+  }
+
+  // Check if password matches
+  if(!(bcrypt.compare(password, user.password))) {
+    res.status(404).json({
+      errors: ['Usuário ou senha incorretos.']
+    })
+    return
+  }
+
+  // Return user with token
+  res.status(200).json({
+    _id: user._id,
+    profileImage: user.profileImage,
+    token: generateToken(user._id)
+  })
+  return 
 }
 
 module.exports = {
