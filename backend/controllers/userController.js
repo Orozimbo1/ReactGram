@@ -54,6 +54,12 @@ const register = async (req, res) => {
 
 }
 
+// Sign user in
+const login = async (req, res) => {
+  res.status(200).json('deu certo')
+}
+
 module.exports = {
   register,
+  login,
 }
