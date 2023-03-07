@@ -25,10 +25,7 @@ const userCreateValidation = (req, res, next) => {
           throw new Error('As senhas não são iguais.')
         }
         return true
-      }),
-    body('profileImage')
-      .isURL()
-      .withMessage('A imagem precisa ser uma URL.')
+      })
   ]
 }
 
