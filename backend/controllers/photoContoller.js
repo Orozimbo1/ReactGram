@@ -1,5 +1,37 @@
 const Photo = require('../models/Photo')
+const User = require('../models/User')
 
 const mongoose = require('mongoose')
-const router = require('../routes/userRoutes')
 
+// Insert a photo, with an user related to it
+const insertPhoto = async (req, res) => {
+
+  const { title } = req.body
+  const image = req.file.filename
+
+  const reqUser = req.user
+
+  const user = await User.findById(reqUser._id)
+
+  // Create a photo
+  const newPhoto = await Photo.create({
+    image,
+    title,
+    userId: user._id,
+    userName: user.name
+  })
+
+  // If photo was created successfully, return data
+  if(!newPhoto) {
+    res.status(422).json({
+      errors: ['Ocooreu um erro ao tentar salvar a imagem, tente mais tarde.']
+    })
+    return
+  }
+
+  res.status(201).json(newPhoto)
+}
+
+module.exports = {
+  insertPhoto,
+}

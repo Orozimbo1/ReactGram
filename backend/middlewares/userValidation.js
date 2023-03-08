@@ -1,6 +1,6 @@
 const { body } = require('express-validator')
 
-const userCreateValidation = (req, res, next) => {
+const userCreateValidation = () => {
   return [
     body('name')
       .isString()
