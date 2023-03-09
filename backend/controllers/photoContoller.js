@@ -193,15 +193,73 @@ const likePhoto = async (req, res) => {
       return
     }
 
-    // Put user id in likes array
+    // Put user id in the likes array
     photo.likes.push(reqUser._id)
 
     await photo.save()
 
-    res.status(200).json('Você curtiu a foto.')
+    res.status(200).json({
+      photoId: id, userId: reqUser._id, message: 'Você curtiu a foto.'
+    })
 
   } catch (error) {
     
+  }
+
+}
+
+// Comment functionality
+const commentPhoto = async (req, res) => {
+
+  const { id } = req.params
+
+  const { comment } = req.body
+
+  const reqUser = req.user
+
+  try {
+    
+    const user = await User.findById(reqUser._id)
+
+    // Check if user exists
+    if(!user) {
+      res.status(404).json({
+        errors: ['Usuário não encontrado.']
+      })
+      return
+    }
+
+    const photo = await Photo.findById(id)
+
+    // Check if photo exists
+    if(!photo) {
+      res.status(404).json({
+        errors: ['Foto não encontrada.']
+      })
+      return
+    }
+
+    // Put comment in the array comments
+    const commentUser = {
+      comment,
+      userName: user.name,
+      userImage: user.profileImage,
+      userId: user._id
+    }
+
+    photo.comments.push(commentUser)
+
+    await photo.save()
+
+    res.status(200).json({
+      comment: commentUser,
+      message: 'O comentário foi inserido com sucesso.'
+    })
+
+  } catch (error) {
+    res.status(401).json({
+      errors: ['Houve um erro, por favor tente mais tarde.']
+    })
   }
 
 }
@@ -213,5 +271,6 @@ module.exports = {
   getUserPhotos,
   getPhotoById,
   updatePhoto,
-  likePhoto
+  likePhoto,
+  commentPhoto
 }
