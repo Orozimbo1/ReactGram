@@ -269,8 +269,6 @@ const searchPhotos = async (req, res) => {
 
   const { q } = req.query
 
-  console.log(q)
-
   try {
     
     const photos = await Photo.find({ title: new RegExp(q, 'i') }).exec()
