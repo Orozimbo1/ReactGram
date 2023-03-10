@@ -269,9 +269,18 @@ const searchPhotos = async (req, res) => {
 
   const { q } = req.query
 
+  console.log(q)
+
   try {
     
-    const photos = await Photo.find({ title: new RegExp(q, 'i') }).exec(
+    const photos = await Photo.find({ title: new RegExp(q, 'i') }).exec()
+
+    if(photos.length === 0) {
+      res.status(404).json({
+        errors: [`Não foi encontrada nenhuma foto com a busca '${q}'`]
+      })
+      return
+    }
 
     res.status(200).json(photos)
 
