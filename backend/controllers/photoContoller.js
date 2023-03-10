@@ -264,6 +264,26 @@ const commentPhoto = async (req, res) => {
 
 }
 
+// Search photo by title
+const searchPhotos = async (req, res) => {
+
+  const { q } = req.query
+
+  try {
+    
+    const photos = await Photo.find({ title: new RegExp(q, 'i') }).exec(
+
+    res.status(200).json(photos)
+
+  } catch (error) {
+    res.status(422).json({
+      errors: ['Houve um erro, por favor tente mais tarde.']
+    })
+    return
+  }
+
+}
+
 module.exports = {
   insertPhoto,
   deletePhoto,
@@ -272,5 +292,6 @@ module.exports = {
   getPhotoById,
   updatePhoto,
   likePhoto,
-  commentPhoto
+  commentPhoto,
+  searchPhotos
 }
