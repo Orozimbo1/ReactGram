@@ -1,5 +1,5 @@
 {
-  "name": "reactgram",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
