@@ -19,3 +19,5 @@ const useAuth = () => {
 
   return { auth, loading }
 }
+
+export default useAuth;
