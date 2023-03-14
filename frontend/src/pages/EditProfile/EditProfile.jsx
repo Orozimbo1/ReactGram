@@ -1,6 +1,44 @@
 import './EditProfile.css'
 
+import { uploads } from '../../utils/config'
+
+// Hooks
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+// Redux
+import { profile, resetMessages } from '../../slices/userSlice'
+
+// Components
+import Message from '../../components/Messages/Message'
+
 const EditProfile = () => {
+  const dispatch = useDispatch()
+
+  const { user, error, loading, message } = useSelector((state) => state.user)
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [profileImage, setProfileImage] = useState('')
+  const [bio, setBio] = useState('')
+  const [previewImage, setPreviewImage] = useState('')
+
+  // Load user data
+  useEffect(() => {
+    dispatch(profile())
+  }, [dispatch])
+
+  // Fill form with user data
+  useEffect(() => {
+
+    if(user) {
+      setName(user.name)
+      setEmail(user.email)
+      setBio(user.bio)
+    }
+
+  }, [user])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -15,11 +53,14 @@ const EditProfile = () => {
         <input 
           type="text" 
           placeholder='Nome' 
+          onChange={(e) => setName(e.target.value)}
+          value={name || ''}
         />
         <input 
           type="email" 
           placeholder='Email'
           disabled 
+          value={email || ''}
         />
         <label>
           <span>Imagem do Perfil:</span>
@@ -30,6 +71,8 @@ const EditProfile = () => {
           <input 
             type="text"
             placeholder='Descrição do perfil'
+            onChange={(e) => setBio(e.target.value)}
+            value={bio || ''}
           />
         </label>
         <label>
@@ -37,6 +80,8 @@ const EditProfile = () => {
           <input 
             type="password"
             placeholder='Digite sua nova senha'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password || ''}
           />
         </label>
         <input type="submit" value="Atualizar" />
