@@ -25,6 +25,7 @@ const updateProfile = async (data, token) => {
   try {
 
     const res = await fetch(`${api}/users`, config)
+      // .then((res) => console.log(res.json()))
       .then((res) => res.json())
       .catch((err) => err)
     
