@@ -4,7 +4,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // Pages
-import { Home, Login, Register, EditProfile } from './pages'
+import { Home, Login, Register, EditProfile, Profile } from './pages'
 
 // Components
 import { Navbar, Footer } from './components'
@@ -35,6 +35,10 @@ function App() {
           <Route 
             path='/profile' 
             element={auth ? <EditProfile /> : <Navigate to='/login' />} 
+          />
+          <Route 
+            path='/users/:id' 
+            element={auth ? <Profile /> : <Navigate to='/login' />} 
           />
           <Route 
             path='/login' 
