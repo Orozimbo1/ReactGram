@@ -169,6 +169,7 @@ const photoService = {
   like,
   comment,
   getPhotos,
+  searchPhotos,
 }
 
 export default photoService;
