@@ -4,7 +4,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // Pages
-import { Home, Login, Register, EditProfile, Profile, Photo } from './pages'
+import { Home, Login, Register, EditProfile, Profile, Photo, Search } from './pages'
 
 // Components
 import { Navbar, Footer } from './components'
@@ -31,6 +31,10 @@ function App() {
           <Route 
             path='/' 
             element={auth ? <Home /> : <Navigate to='/login' />} 
+          />
+          <Route 
+            path='/search' 
+            element={auth ? <Search /> : <Navigate to='/login' />} 
           />
           <Route 
             path='/profile' 
