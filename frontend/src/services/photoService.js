@@ -106,8 +106,8 @@ const like = async (id, token) => {
   }
 }
 
-// Comment a photo
-const comment = async (id, data, token) => {
+// Add comment to a photo
+const comment = async (data, id, token) => {
 
   const config = requestConfig('PUT', data, token)
 
@@ -132,6 +132,7 @@ const photoService = {
   updatePhoto,
   getPhotoById,
   like,
+  comment,
 }
 
 export default photoService;
